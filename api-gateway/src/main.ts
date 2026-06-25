@@ -13,10 +13,12 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('API Marketplace Gateway')
@@ -26,10 +28,10 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-  
+
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
-  console.log( ` 🟢 Server is running on port ${port}`);
-  console.log( ` 📄 Docs are running on http://localhost:${port}/docs`);  
+  console.log(` 🟢 Server is running on port ${port}`);
+  console.log(` 📄 Docs are running on http://localhost:${port}/docs`);
 }
 bootstrap();
